@@ -1,0 +1,18 @@
+
+
+$sudo apt update
+$sudo apt install gcc
+
+$gcc program.c -o output
+$./output
+
+
+$sudo apt install gdb
+
+gcc -g program.c -o program
+gdb program
+break main
+run
+next
+print x
+quit

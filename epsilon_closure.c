@@ -1,7 +1,7 @@
 // Epsilon- Closure Implementation in C 
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX_STATES 100
+#define MAX_STATES 10
 
 // Structure to represent a transition
 typedef struct {
