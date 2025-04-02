@@ -1,48 +1,45 @@
 %{
-    #include <stdio.h>
-    #include <stdlib.h>
+#include <stdio.h>
 %}
 
-%option noyywrap
+DIGIT   [0-9]+
+ID      [a-zA-Z_][a-zA-Z0-9_]*
+WS      [ \t\n]+
+COMMENT_SINGLE \/\/.*   
+COMMENT_MULTI   \/\*([^*]|\*+[^*/])*\*+\/ 
 
-/* Definitions */
-KEYWORD     "int"|"float"|"char"|"if"|"else"|"while"|"return"|"for"|"switch"|"case"|"break"
-IDENTIFIER  [a-zA-Z_][a-zA-Z0-9_]*
-NUMBER      [0-9]+
-OPERATOR    "="|"+"|"-"|"*"|"/"
-STRING      \"[^\"]*\"
+%%
+ // Ignore comments (both single-line and multi-line)
+{COMMENT_SINGLE} { /* Ignore single-line comments */ }
+{COMMENT_MULTI}  { /* Ignore multi-line comments */ }
+
+"int"       { printf("TOKEN: KEYWORD_INT, LEXEME: %s\n", yytext); }
+"return"    { printf("TOKEN: KEYWORD_RETURN, LEXEME: %s\n", yytext); }
+"printf"    { printf("TOKEN: FUNCTION_PRINTF, LEXEME: %s\n", yytext); }
+{ID}        { printf("TOKEN: IDENTIFIER, LEXEME: %s\n", yytext); }
+"="         { printf("TOKEN: ASSIGNMENT, LEXEME: %s\n", yytext); }
+{DIGIT}     { printf("TOKEN: NUMBER, LEXEME: %s\n", yytext); }
+"("         { printf("TOKEN: LEFT_PAREN, LEXEME: %s\n", yytext); }
+")"         { printf("TOKEN: RIGHT_PAREN, LEXEME: %s\n", yytext); }
+"{"         { printf("TOKEN: LEFT_BRACE, LEXEME: %s\n", yytext); }
+"}"         { printf("TOKEN: RIGHT_BRACE, LEXEME: %s\n", yytext); }
+"\""        { printf("TOKEN: DOUBLE_QUOTE, LEXEME: %s\n", yytext); }
+";"         { printf("TOKEN: SEMICOLON, LEXEME: %s\n", yytext); }
+"*"         { printf("TOKEN: MULTIPLICATION, LEXEME: %s\n", yytext); }
+"/"         { printf("TOKEN: DIVISION, LEXEME: %s\n", yytext); }
+"%"         { printf("TOKEN: MODULUS, LEXEME: %s\n", yytext); }
+"+"         { printf("TOKEN: ADDITION, LEXEME: %s\n", yytext); }
+"-"         { printf("TOKEN: SUBTRACTION, LEXEME: %s\n", yytext); }
+{WS}        { /* Ignore whitespace */ }
+.           { printf("TOKEN: UNKNOWN, LEXEME: %s\n", yytext); }
 
 %%
 
-{KEYWORD}     { printf("keyword: %s\n", yytext); }
-{IDENTIFIER}  { printf("identifier: %s\n", yytext); }
-{NUMBER}      { printf("number: %s\n", yytext); }
-{OPERATOR}    { printf("operator: %s\n", yytext); }
-{STRING}      { printf("string: %s\n", yytext); }
-[ \t\n]+      ; /* Ignore whitespace */
-.             { printf("symbol: %s\n", yytext); }
-
-%%
-
-int main(int argc, char *argv[]) {
-    FILE *inputFile;
-
-    if (argc > 1) {
-        inputFile = fopen(argv[1], "r");
-        if (!inputFile) {
-            perror("Error opening file");
-            return 1;
-        }
-        yyin = inputFile;
-    } else {
-        printf("Enter C code (CTRL+D to stop):\n");
-    }
-
-    yylex();
-
-    if (argc > 1) {
-        fclose(inputFile);
-    }
-
+int main() {
+    yylex();  // Start scanning
     return 0;
+}
+
+int yywrap() {
+    return 1;
 }
