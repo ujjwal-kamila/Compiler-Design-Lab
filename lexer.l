@@ -4,7 +4,7 @@
 
 DIGIT   [0-9]+
 ID      [a-zA-Z_][a-zA-Z0-9_]*
-WS      [ \t\n]+
+WS      [ \t\n\r]+
 COMMENT_SINGLE \/\/.*   
 COMMENT_MULTI   \/\*([^*]|\*+[^*/])*\*+\/ 
 
@@ -24,6 +24,7 @@ COMMENT_MULTI   \/\*([^*]|\*+[^*/])*\*+\/
 "{"         { printf("TOKEN: LEFT_BRACE, LEXEME: %s\n", yytext); }
 "}"         { printf("TOKEN: RIGHT_BRACE, LEXEME: %s\n", yytext); }
 "\""        { printf("TOKEN: DOUBLE_QUOTE, LEXEME: %s\n", yytext); }
+\"([^\\\"]|\\.)*\"   { printf("TOKEN: STRING_LITERAL, LEXEME: %s\n", yytext); }
 ";"         { printf("TOKEN: SEMICOLON, LEXEME: %s\n", yytext); }
 "*"         { printf("TOKEN: MULTIPLICATION, LEXEME: %s\n", yytext); }
 "/"         { printf("TOKEN: DIVISION, LEXEME: %s\n", yytext); }
@@ -31,6 +32,7 @@ COMMENT_MULTI   \/\*([^*]|\*+[^*/])*\*+\/
 "+"         { printf("TOKEN: ADDITION, LEXEME: %s\n", yytext); }
 "-"         { printf("TOKEN: SUBTRACTION, LEXEME: %s\n", yytext); }
 {WS}        { /* Ignore whitespace */ }
+
 .           { printf("TOKEN: UNKNOWN, LEXEME: %s\n", yytext); }
 
 %%
