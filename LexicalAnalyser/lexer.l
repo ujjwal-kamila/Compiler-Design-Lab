@@ -45,3 +45,13 @@ int main() {
 int yywrap() {
     return 1;
 }
+
+
+
+// run using 
+/*
+$ lex table.l
+$ gcc lex.yy.c -o lexer
+$ ./lexer <lex_input.c
+
+*/

@@ -64,3 +64,11 @@ int main() {
     yylex();
     return 0;
 }
+
+// run using 
+/*
+$ lex table.l
+$ gcc lex.yy.c -o lexer
+$ ./lexer <symbol_input.c      or |   $ ./lexer then input c 
+
+*/
