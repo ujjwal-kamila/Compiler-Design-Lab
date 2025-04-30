@@ -52,3 +52,13 @@ COMMENT   ("//".*|"/\\*"([^*]|"*"[^/])*"\\*/")
 .           { yyerror("Invalid character"); }
 
 %%
+
+/*
+// bison -d parcer.y
+
+// flex lexer.l
+
+// gcc parcer.tab.c lex.yy.c -o parser -lfl
+
+// ./parser < test.c
+*/

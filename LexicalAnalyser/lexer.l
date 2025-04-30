@@ -8,6 +8,7 @@ WS      [ \t\n\r]+
 COMMENT_SINGLE \/\/.*   
 COMMENT_MULTI   \/\*([^*]|\*+[^*/])*\*+\/ 
 
+
 %%
  // Ignore comments (both single-line and multi-line)
 {COMMENT_SINGLE} { /* Ignore single-line comments */ }
